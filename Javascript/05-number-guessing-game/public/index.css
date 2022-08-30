@@ -1,0 +1,29 @@
+html {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    background-color: lawngreen;
+}
+
+.container {
+    width: 393px;
+    margin: auto;
+    padding: 15px;
+    display: block;
+}
+
+#game {
+    display: none;
+}
+
+#game > textarea {
+    width: 100%;
+    margin-top: 15px;
+}
