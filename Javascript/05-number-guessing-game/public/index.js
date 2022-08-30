@@ -61,6 +61,7 @@ function guessNumber() {
             guessInput.disabled = true;
             nameInput.disabled = false;
             startButton.disabled = false;
+            numberOfGuesses = 0;
         }
     }
 }
