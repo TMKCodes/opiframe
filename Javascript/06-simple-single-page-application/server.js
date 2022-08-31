@@ -11,10 +11,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
 app.get("/api/users", (req, res) => {
+    // TODO: remove passwords in return.
     res.status(200).json(userDB);
 });
 
 app.get("/api/users/:id", (req, res) => {
+    // TODO: remove password in return.
     let id = req.params.id;
     let user = userDB.find(function(user) {
         return user.id == id;
@@ -44,15 +46,20 @@ app.post("/api/users/", (req, res) => {
 });
 
 app.put("/api/users/:id", (req, res) => {
-    let user = req.body;
-    user.id = parseInt(req.params.id, 10);
-    for(let i = 0; i < userDB.length; i++) {
-        if(userDB[i].id == user.id) {
-            userDB[i] = user;
-            return res.status(200).json(userDB[i]);
-        }
+    let modifiedUser = {
+        "id" : parseInt(req.params.id, 10),
+        "username" : req.body.username,
+        "firstname" : req.body.firstname,
+        "lastname" : req.body.lastname,
+        "email" : req.body.email,
+        "phone" : req.body.phone,
+    };
+    let index = userDB.findIndex(user => user.id == modifiedUser.id);
+    if(index == -1) {
+        return res.status(404).send({"message" : "User not found"});
     }
-    return res.status(404).json({"message" : "Not found: id"});
+    userDB.splice(index, 1, modifiedUser);
+    return res.status(200).json(modifiedUser);
 });
 
 app.delete("/api/users/:id", (req, res) => {
