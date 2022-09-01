@@ -39,7 +39,6 @@ let getContacts = async () => {
     }
 }
 
-
 let updateContact = async (id, newContact) => {
     let response = await fetch("/api/users/" + id, {
         method: "PUT",
@@ -75,6 +74,60 @@ let deleteContact = async (id) => {
     }
 }
 
+let changeToEditMode = (user) => {
+    mode = user.id;
+    console.log(user.id)
+    let form = document.getElementById("form");
+    let username = document.getElementById("usernameInput");
+    let firstname = document.getElementById("firstnameInput");
+    let lastname = document.getElementById("lastnameInput");
+    let email = document.getElementById("emailInput");
+    let phone = document.getElementById("phoneInput");
+    username.value = user.username;
+    firstname.value = user.firstname;
+    lastname.value = user.lastname;
+    email.value = user.email;
+    phone.value = user.phone;
+    let submitButton = document.getElementById("addButton");
+    submitButton.value = "Save";
+    submitButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        let newContact = {
+            username: username.value,
+            firstname: firstname.value,
+            lastname: lastname.value,
+            email: email.value,
+            phone: phone.value
+        };
+        updateContact(user.id, newContact).then(() => {
+            getContacts().then(data => {
+                appendTable(anchor, data);
+                form.reset();
+                mode = 0;
+                submitButton.value = "Add";
+                submitButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    let newContact = {
+                        username: document.getElementById("usernameInput").value,
+                        firstname: document.getElementById("firstnameInput").value,
+                        lastname: document.getElementById("lastnameInput").value,
+                        email: document.getElementById("emailInput").value,
+                        phone: document.getElementById("phoneInput").value
+                    };
+                    console.log(newContact);
+                    addContact(newContact);
+                    form.reset();
+                    getContacts().then(data => {
+                        appendTable(anchor, data);
+                    });
+                });
+                console.log("Done.");
+            });
+        });
+    });
+
+}
+
 // VIEW STUFF
 
 
@@ -85,11 +138,53 @@ let appendTable = (anchor, data) => {
         oldTable.remove();
     }
     let table = document.createElement("table");
-    table.id = "usersTable";
-    table.innerHTML = "";
+
+	let header = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+
+	let usernameheader = document.createElement("th");
+	let usernametext = document.createTextNode("Username");
+	usernameheader.appendChild(usernametext);
+
+	let firstnameheader = document.createElement("th");
+	let firstnametext = document.createTextNode("First Name");
+	firstnameheader.appendChild(firstnametext);
+	
+	let lastnameheader = document.createElement("th");
+	let lastnametext = document.createTextNode("Last Name");
+	lastnameheader.appendChild(lastnametext);
+	
+	let emailheader = document.createElement("th");
+	let emailtext = document.createTextNode("Email");
+	emailheader.appendChild(emailtext);
+	
+	let phoneheader = document.createElement("th");
+	let phonetext = document.createTextNode("Phone");
+	phoneheader.appendChild(phonetext);
+	
+	let removeheader = document.createElement("th");
+	let removetext = document.createTextNode("Remove");
+	removeheader.appendChild(removetext);
+	
+	let editheader = document.createElement("th");
+	let edittext = document.createTextNode("Edit");
+	editheader.appendChild(edittext);
+	
+    headerRow.appendChild(usernameheader);
+	headerRow.appendChild(firstnameheader);
+	headerRow.appendChild(lastnameheader);
+	headerRow.appendChild(emailheader);
+	headerRow.appendChild(phoneheader);
+	headerRow.appendChild(removeheader);	
+	headerRow.appendChild(editheader);
+
+	header.appendChild(headerRow);
+	table.appendChild(header);
+
+    let tableBody = document.createElement("tbody");
     for(let i = 0; i < data.length; i++) {
         let row = document.createElement("tr");
-        for(let x = 1; x < 5; x++) {
+        for(let x = 1; x < 6; x++) {
             let cell = document.createElement("td");
             let text = document.createTextNode(data[i][Object.keys(data[i])[x]]);
             cell.appendChild(text);
@@ -99,7 +194,7 @@ let appendTable = (anchor, data) => {
         let editButton = document.createElement("button");
         editButton.setAttribute("name", data[i].id);
         editButton.addEventListener("click", (evt) => {
-
+            changeToEditMode(data[i]);
         });
         let editButtonTextNode = document.createTextNode("Edit");
         editButton.appendChild(editButtonTextNode);
@@ -121,8 +216,10 @@ let appendTable = (anchor, data) => {
 
         row.appendChild(edit);
         row.appendChild(del);
-        table.appendChild(row);
+        tableBody.appendChild(row);
     }
+    table.appendChild(tableBody);
+    table.setAttribute("id", "usersTable");
     anchor.appendChild(table);
 }
 

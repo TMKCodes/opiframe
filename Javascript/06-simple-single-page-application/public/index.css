@@ -11,3 +11,8 @@ label:before {
     content: "\a";
     white-space: pre;
 }
+
+#usersTable {
+    width: 100%;
+    border: 1px solid black;
+}
