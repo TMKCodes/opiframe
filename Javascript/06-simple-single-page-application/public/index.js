@@ -11,10 +11,8 @@ let addContact = async (newContact) => {
         },
         body: JSON.stringify(newContact)
     });
-    console.log(response.status);
     if(response.ok) {
         let data = await response.json();
-        console.log(data);
     } else {
         console.error("Failed to add contact, for some unknown reason.");
     }
@@ -28,10 +26,8 @@ let getContacts = async () => {
             "Content-Type": "application/json"
         }
     });
-    console.log(response.status);
     if(response.ok) {
         let data = await response.json();
-        console.log(data);
         return data;
     } else {
         console.log("Failed to get contacts, for some unknown reason.");
@@ -48,10 +44,9 @@ let updateContact = async (id, newContact) => {
         },
         body: JSON.stringify(newContact)
     });
-    console.log(response.status);
     if(response.ok) {
         let data = await response.json();
-        console.log(data);
+        return data;
     } else {
         console.error("Failed to update contact, for some unknown reason.");
     }
@@ -65,18 +60,14 @@ let deleteContact = async (id) => {
             "Content-Type": "application/json"
         }
     });
-    console.log(response.status);
     if(response.ok) {
         let data = await response.json();
-        console.log(data);
     } else {
         console.error("Failed to delete contact, for some unknown reason.");
     }
 }
 
 let changeToEditMode = (user) => {
-    mode = user.id;
-    console.log(user.id)
     let form = document.getElementById("form");
     let username = document.getElementById("usernameInput");
     let firstname = document.getElementById("firstnameInput");
@@ -99,40 +90,41 @@ let changeToEditMode = (user) => {
             email: email.value,
             phone: phone.value
         };
-        updateContact(user.id, newContact).then(() => {
+        console.log(user.id);
+        updateContact(user.id, newContact).then((data) => {
+            console.log(data);
             getContacts().then(data => {
                 appendTable(anchor, data);
                 form.reset();
                 mode = 0;
                 submitButton.value = "Add";
-                submitButton.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    let newContact = {
-                        username: document.getElementById("usernameInput").value,
-                        firstname: document.getElementById("firstnameInput").value,
-                        lastname: document.getElementById("lastnameInput").value,
-                        email: document.getElementById("emailInput").value,
-                        phone: document.getElementById("phoneInput").value
-                    };
-                    console.log(newContact);
-                    addContact(newContact);
-                    form.reset();
-                    getContacts().then(data => {
-                        appendTable(anchor, data);
-                    });
-                });
-                console.log("Done.");
             });
         });
     });
 
 }
 
+let addUserEventListener = (event) => {
+    console.log("AddingUserEventListener");
+    event.preventDefault();
+    let newContact = {
+        username: document.getElementById("usernameInput").value,
+        firstname: document.getElementById("firstnameInput").value,
+        lastname: document.getElementById("lastnameInput").value,
+        email: document.getElementById("emailInput").value,
+        phone: document.getElementById("phoneInput").value
+    };
+    addContact(newContact).then(() => {
+        getContacts().then(data => {
+            appendTable(anchor, data);
+        });
+    });
+};
+
 // VIEW STUFF
 
 
 let appendTable = (anchor, data) => {
-    console.log("Populating table with data: " + data);
     let oldTable = document.getElementById("usersTable");
     if(oldTable) {
         oldTable.remove();
@@ -194,6 +186,7 @@ let appendTable = (anchor, data) => {
         let editButton = document.createElement("button");
         editButton.setAttribute("name", data[i].id);
         editButton.addEventListener("click", (evt) => {
+            console.log(data[i]);
             changeToEditMode(data[i]);
         });
         let editButtonTextNode = document.createTextNode("Edit");
@@ -263,22 +256,7 @@ let appendOurForm = (anchor) => {
     appendSubmitButton(form, "addButton", "Add");
 
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        let newContact = {
-            username: document.getElementById("usernameInput").value,
-            firstname: document.getElementById("firstnameInput").value,
-            lastname: document.getElementById("lastnameInput").value,
-            email: document.getElementById("emailInput").value,
-            phone: document.getElementById("phoneInput").value
-        };
-        console.log(newContact);
-        addContact(newContact);
-        form.reset();
-        getContacts().then(data => {
-            appendTable(anchor, data);
-        });
-    });
+    form.addEventListener("submit", addUserEventListener);
 
     anchor.appendChild(form);
 
