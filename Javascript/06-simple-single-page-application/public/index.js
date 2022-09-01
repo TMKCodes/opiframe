@@ -81,7 +81,7 @@ let changeToEditMode = (user) => {
     phone.value = user.phone;
     let submitButton = document.getElementById("addButton");
     submitButton.value = "Save";
-    submitButton.addEventListener("click", (event) => {
+    submitButton.onclick = (event) => {
         event.preventDefault();
         let newContact = {
             username: username.value,
@@ -100,7 +100,7 @@ let changeToEditMode = (user) => {
                 submitButton.value = "Add";
             });
         });
-    });
+    };
 
 }
 
