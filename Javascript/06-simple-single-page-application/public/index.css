@@ -1,0 +1,13 @@
+html {
+    margin: 0px;
+    padding: 0px;
+    background-color: lemonchiffon;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+}
+
+
+label:before {
+    content: "\a";
+    white-space: pre;
+}
