@@ -41,6 +41,14 @@ let changeColor = () => {
     }
 }
 
+let hook = () => {
+    let datapoint = 0;
+    return {
+        get: () => datapoint,
+        set: (val) => datapoint = val
+    }
+}
+
 window.onload = () => {
     let fontChanger = changeFont();
     document.getElementById("biggerFont").onclick = fontChanger.bigger;
@@ -50,4 +58,23 @@ window.onload = () => {
     document.getElementById("green").onclick = colorChanger.green;
     document.getElementById("blue").onclick = colorChanger.blue;
     document.getElementById("black").onclick = colorChanger.black;
+
+    let [counter, setcounter] = hook();
+    document.getElementById("red").onclick = () => {
+        setcounter(counter + 1);
+        document.getElementById("colorChangeTimes").innerHTML = counter;
+    }
+    document.getElementById("green").onclick = () => {
+        setcounter(counter + 1);
+        document.getElementById("colorChangeTimes").innerHTML = counter;
+    }
+    document.getElementById("blue").onclick = () => {
+        setcounter(counter + 1);
+        document.getElementById("colorChangeTimes").innerHTML = counter;
+    }
+    document.getElementById("black").onclick = () => {
+        setcounter(counter + 1);
+        document.getElementById("colorChangeTimes").innerHTML = counter;
+    }
+
 }
