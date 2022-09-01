@@ -1,5 +1,7 @@
 var mode = 0;
 
+// REST API endpoint: /api/users
+
 let addContact = async (newContact) => {
     let response = await fetch("/api/users", {
         method: "POST",
@@ -38,7 +40,6 @@ let getContacts = async () => {
 }
 
 
-
 let updateContact = async (id, newContact) => {
     let response = await fetch("/api/users/" + id, {
         method: "PUT",
@@ -74,6 +75,9 @@ let deleteContact = async (id) => {
     }
 }
 
+// VIEW STUFF
+
+
 let appendTable = (anchor, data) => {
     console.log("Populating table with data: " + data);
     let oldTable = document.getElementById("usersTable");
@@ -106,7 +110,9 @@ let appendTable = (anchor, data) => {
         delButton.setAttribute("name", data[i].id);
         delButton.addEventListener("click", (evt) => {
             deleteContact(evt.target.name).then(() => {
-                appendTable(anchor, getContacts());
+                getContacts().then(data => {
+                    appendTable(anchor, data);
+                });
             });
         });
         let delButtonTextNode = document.createTextNode("Delete");
