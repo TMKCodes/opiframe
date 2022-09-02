@@ -13,6 +13,11 @@ rollWin = (winText) => {
     select.disabled = false;
     let result = document.getElementById("result");
     result.innerHTML = winText;
+    let rollCount = document.getElementById("rollCount");
+    rollCount.innerHTML = "0";
+    let rollPoint = document.getElementById("rollPoint");
+    rollPoint.innerHTML = "0";
+    
 }
 
 rollAgain = () => {
