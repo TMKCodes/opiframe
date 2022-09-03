@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Socket.io</title>
+        <link rel="stylesheet" href="css/index.css">
+        <script src="https://cdn.socket.io/3.0.3/socket.io.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <div class="container">
+
+        </div>
+        <div class="container">
+            <div class="chat_messages">
+                <ul id="messages"></ul>
+            </div>
+            <form id="form" action="">
+                <input type="text" id="message" placeholder="Type a message">
+                <button type="submit" id="submit" onclick="send(event)">Send</button>
+            </form>
+        </div>
+    </body>
+</html>
