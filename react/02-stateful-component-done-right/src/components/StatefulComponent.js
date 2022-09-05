@@ -4,6 +4,7 @@ const StatefulComponent = () => {
     const [state, setState] = useState({ count: 0 });
     
     useEffect(() => {
+        // Voisi käyttää setTimeout, mutta kerran Opettaja käytti setInterval, joten käytän sitä.
         const interval = setInterval(() => {
             setState(state => ({ count: state.count + 1 }));
         }, 1000);
