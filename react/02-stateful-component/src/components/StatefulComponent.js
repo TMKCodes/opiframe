@@ -12,7 +12,7 @@ const StatefulComponent = () => {
         });
     };
 
-    const stopTimer = () => {
+    const clearTimer = () => {
         clearInterval(state.timer);
         setState((state) => {
             return {
@@ -47,7 +47,7 @@ const StatefulComponent = () => {
     return (
         <div>
             <h1>Seconds {state.seconds} since you entered the page.</h1>
-            <button onClick={ stopTimer }>Stop Timer</button>
+            <button onClick={ clearTimer }>Stop Timer</button>
         </div>
     )
 }
