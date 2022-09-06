@@ -1,0 +1,16 @@
+form {
+  text-align: left;
+  padding: 20px;
+  width: 194px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+}

@@ -21,7 +21,6 @@ const StatefulComponent = () => {
             <p>Seconds {state.count} since you entered the page.</p>
             <button onClick={() => setState({ count: 0 })}>Reset timer</button>
         </div>
-
     );
 };
 
