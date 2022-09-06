@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid #ccc;
+}
+
+tr:nth-child(2n) {
+  background-color: #f3f3f3;
+}
+
+td {
+  padding: 10px;
+}

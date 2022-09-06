@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './ContactForm.css';
 
 
@@ -26,22 +26,6 @@ const ContactForm = (props) => {
       phone: ''
     });
   };
-  
-  // useEffect(async () => {
-  //   console.count('state changed');
-  //   const response = await fetch('https://jsonplaceholder.typicode.com/users', 
-  //     {
-  //       method: 'POST',
-  //       mode: 'cors',
-  //       credentials: 'same-orgiin',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(state)
-  //     });
-  //   const data = await response.json();
-    
-  // }, [state.name, state.email, state.phone]);
   
   return (
     <form onSubmit={handleSubmit}>
