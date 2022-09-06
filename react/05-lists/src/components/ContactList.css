@@ -1,6 +1,7 @@
 table {
-  width: 100%;
+  float: left;
   border-collapse: collapse;
+  margin: 20px;
 }
 
 tr {
@@ -8,7 +9,7 @@ tr {
 }
 
 tr:nth-child(2n) {
-  background-color: gray;
+  background-color: rgb(209, 208, 208);
 }
 
 td {

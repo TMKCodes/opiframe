@@ -25,10 +25,22 @@ function App() {
 		}));
 	};
 
+	const editContact = (newContact) => {
+		setState((state) => ({
+			list: state.list.map((contact) => {
+				if (contact.id === newContact.id) {
+					return newContact;
+				}
+				return contact;
+			}),
+			id: state.id
+		}));
+	};
+
 	return (
 		<div className="App">
 			<ContactForm addContact={addContact} />
-			<ContactList contacts={state.list} deleteContact={deleteContact} />
+			<ContactList contacts={state.list} deleteContact={deleteContact} editContact={editContact} />
 		</div>
 	);
 };

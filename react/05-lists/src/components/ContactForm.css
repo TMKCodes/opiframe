@@ -1,8 +1,8 @@
 form {
+  float: left;
   text-align: left;
   padding: 20px;
   width: 194px;
-  margin: 0 auto;
 }
 
 label {
