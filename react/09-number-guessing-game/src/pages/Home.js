@@ -12,7 +12,7 @@ const Home = (props) => {
     });
   };
 
-  props.topList.sort((a, b) => b.result - b.result);
+  props.topList.sort((a, b) => a.result - b.result);
 
   let topList = props.topList.map((item, index) => {
     return (
