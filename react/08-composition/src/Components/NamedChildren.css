@@ -1,0 +1,11 @@
+.card {
+  background : lightblue !important;
+  height : 200px !important;
+  width : 150px !important;
+  text-align: center !important;
+  margin: 10px !important;
+}
+
+.card > div > img {
+  width: 140px;
+}
