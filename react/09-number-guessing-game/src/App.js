@@ -30,7 +30,11 @@ function App() {
     navigate("/game");
   };
 
-  const endGame = (playerName, result) => {
+  const endGame = (playerName, result, win) => {
+    if(win !== "win") {
+      navigate("/");
+      return;
+    }
     setState({
       ...state,
       playerName: "",

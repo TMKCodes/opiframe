@@ -19,7 +19,7 @@ const Game = (props) => {
     e.preventDefault();
     let guess = parseInt(state.guess);
     if (guess === props.targetNumber) {
-      props.endGame(props.playerName, state.guesses.length + 1);
+      props.endGame(props.playerName, state.guesses.length + 1, "win");
     } else if (guess < state.min) {
       alert("Guess must be greater than " + state.min);
     } else if (guess > state.max) {
@@ -51,7 +51,7 @@ const Game = (props) => {
       </form>
       <p>{state.result}</p>
       <p>Guesses: {state.guesses.join(", ")}</p>
-      <button onClick={() => props.endGame(props.playerName, state.guesses.length)}>End Game</button>
+      <button onClick={() => props.endGame(props.playerName, state.guesses.length, "ragequit")}>End Game</button>
     </div>
   );
 };
