@@ -30,7 +30,7 @@ const Home = (props) => {
       <input type="text" name="playerName" value={state.playerName} onChange={handleChange} />
       <button onClick={() => props.startGame(state.playerName)}>Start Game</button>
       <h3>Top List</h3>
-      <ul>
+      <ul style={{ listStyleType : "decimal"}}>
         { topList }
       </ul>
     </div>
