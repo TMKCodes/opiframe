@@ -10,8 +10,9 @@ function App() {
     playerName: "",
     targetNumber: 0,
     topList: [
-      { playerName: "John", result: 5 },
-      { playerName: "Jane", result: 3 },
+      { playerName: "I'm bad player", result: 9 },
+      { playerName: "I'm semi good.", result: 6 },
+      { playerName: "I'm epic player.", result: 1 },
     ],
   });
 
