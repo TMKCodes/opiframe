@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './App.css';
 import Home from './pages/Home';
 import Game from './pages/Game';
+import Won from './pages/Won';
 
 function App() {
   const [state, setState] = useState({
@@ -42,7 +43,7 @@ function App() {
       targetNumber: 0,
       topList: [...state.topList, { playerName, result }],
     });
-    navigate("/");
+    navigate("/won");
   };
 
   return (
@@ -50,6 +51,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home topList={state.topList} startGame={startGame}/>} />
         <Route path="/game" element={<Game endGame={endGame} playerName={state.playerName} targetNumber={state.targetNumber} />} />
+        <Route path="/won" element={<Won />} />
       </Routes>
     </div>
   );
