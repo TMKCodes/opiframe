@@ -26,7 +26,7 @@ router.put("/shopping/:id", (req, res) => {
         return res.status(404).send("The item with the given ID was not found.");
     }
     item.type = req.body.type;
-    item.count = req.body.quantity;
+    item.count = req.body.count;
     item.price = req.body.price;
     return res.status(200).json(item);
 });

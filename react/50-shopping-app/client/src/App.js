@@ -19,6 +19,10 @@ function App() {
   });
 
   useEffect(() => {
+    getList();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       if(!urlRequest.url) {
         return;
@@ -32,6 +36,13 @@ function App() {
           case "getList":
             let data = await response.json();
             setState({ ...state, list: data });
+            getList();
+            return;
+          case "deleteItem":
+            getList();
+            return;
+          case "updateItem":
+            getList();
             return;
           default:
             return;
@@ -42,6 +53,12 @@ function App() {
             console.log("Error: Server responded with status.", response.status);
             return;
           case "getList":
+            console.log("Error: Server responded with status.", response.status);
+            return;
+          case "deleteItem":
+            console.log("Error: Server responded with status.", response.status);
+            return;
+          case "updateItem":
             console.log("Error: Server responded with status.", response.status);
             return;
           default:
@@ -81,11 +98,39 @@ function App() {
     });
   }
 
+  const removeItem = (id) => {
+    console.log(id);
+    setUrlRequest({
+      url: `http://localhost:3010/api/shopping/${id}`,
+      request: {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      action: "removeItem",
+    });
+  }
+
+  const updateItem = (item) => {
+    setUrlRequest({
+      url: `http://localhost:3010/api/shopping/${item.id}`,
+      request: {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      },
+      action: "updateItem",
+    });
+  }
+
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<ShoppingList list={state.list} />} />
+        <Route path="/" element={<ShoppingList removeItem={removeItem} updateItem={updateItem} list={state.list} />} />
         <Route path="/form" element={<ShoppingForm addItem={addItem} />} />
       </Routes>
     </div>

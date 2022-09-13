@@ -1,8 +1,5 @@
 {
-  "proxy": {
-    "target": "http://localhost:3010",
-    "ws": true
-  },
+  "proxy":  "http://localhost:3010",
   "name": "client",
   "version": "0.1.0",
   "private": true,

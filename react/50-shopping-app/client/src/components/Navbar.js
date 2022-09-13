@@ -1,19 +1,25 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-const Navbar = () => {
-    return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand m-3" href="#">Shopping cart</a>
-            <ul className="navbar-nav mr-auto m-3">
-                <li className="nav-item">
-                    <Link to="/" className="nav-link">Home</Link>
+const Navbar = (props) => {
+	
+	return (
+		<div style={{
+            width: "100%",
+            margin: "auto",
+        }}>
+		<nav className="navbar navbar-light bg-light justify-content-center">
+			<a className="navbar-brand m-2">Shopping App</a>
+			<ul className="navbar-nav navbar-left flex-row m-auto">
+                <li className="nav-item m-2">
+                    <Link to="/" className="nav-link">Shopping List</Link>
                 </li>
-                <li className="nav-item">
-                    <Link to="/form" className="nav-link">Add new item</Link>
+                <li className="nav-item m-2">
+                    <Link to="/form" className="nav-link">Add Item</Link>
                 </li>
-            </ul>
-        </nav>
-    )
+			</ul>		
+		</nav>
+		</div>
+	)
 }
 
 export default Navbar;
