@@ -36,7 +36,6 @@ function App() {
           case "getList":
             let data = await response.json();
             setState({ ...state, list: data });
-            getList();
             return;
           case "deleteItem":
             getList();
