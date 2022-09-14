@@ -68,8 +68,6 @@ function App() {
     fetchData();
   }, [urlRequest]);
 
-  
-
   const addItem = (item) => {
     setUrlRequest({
       url: "http://localhost:3010/api/shopping",
