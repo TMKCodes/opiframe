@@ -30,12 +30,14 @@ const isUserLogged = (req, res, next) => {
             }
             sessions[i].ttl = now + ttl_to_live_diff;
             req.session = {}
-            req.session.user = loggedSessions[i].user;
+            req.session.user = sessions[i].user;
             return next();
         }
     }
     return res.status(403).json({ error: "Invalid token" });
 }
+
+
 
 router.post('/authentication/register', (req, res) => {
     if (!req.body) {
@@ -101,6 +103,30 @@ router.post("/authentication/login", (req, res) => {
             });
         }
     }
+});
+
+const deleteOldSessions = () => {
+    let now = Date.now();
+    for(let i = 0; i < sessions.length; i++) {
+        if(now > sessions[i].ttl) {
+            sessions.splice(i, 1);
+        }
+    }
+}
+
+router.delete("/authentication/logout", (req, res) => {
+    if(!req.headers.token) {
+        return res.status(403).json({ error: "No token provided" });
+    }
+    for(let i = 0; i < sessions.length; i++) {
+        if(sessions[i].token === req.headers.token) {
+            sessions.splice(i, 1);
+            deleteOldSessions();
+            return res.status(200).json({ message: "success" });
+        }
+    }
+
+    return res.status(403).json({ error: "Invalid token" });
 });
 
 
