@@ -18,13 +18,13 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <ThemeContext.Provider value={state.theme}>
-        <Headline>Dark Theme</Headline>
-        <Paragraph>This is a paragraph in the dark theme.</Paragraph>
+    <ThemeContext.Provider value={state.theme}>
+      <div className="App">
+        <Headline>Theme changers</Headline>
+        <Paragraph>This is theme changer with React context, so please click the theme button to see it in action.</Paragraph>
         <ThemeButton toggleTheme={toggleTheme} />
-      </ThemeContext.Provider>
-    </div>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
