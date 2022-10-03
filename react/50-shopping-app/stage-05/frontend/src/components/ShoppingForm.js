@@ -1,7 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import useActions from '../hooks/useActions';
 
 const ShoppingForm = (props) => {
 	
+	const { add } = useActions();
+
 	const [state,setState] = useState({
 		type:"",
 		count:0,
@@ -22,13 +25,14 @@ const ShoppingForm = (props) => {
 		let item = {
 			...state
 		}
-		props.addItem(item);
+		add(item);
 		setState({
 			type:"",
 			count:0,
 			price:0
 		})
 	}
+
 	return(
 		<div style={{
 			backgroundColor:"lightgreen",

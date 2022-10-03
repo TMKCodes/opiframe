@@ -5,11 +5,22 @@ const crypto = require("crypto");
 const mongoose = require("mongoose");
 const userModel = require("./models/user");
 const sessionModel = require("./models/session");
+const dotenv = require("dotenv").config();
+const cors = require("cors");
 
 let app = express();
 
 app.use(express.json());
-
+let allowedDomains = JSON.parse(process.env.CORS_ORIGIN) || [ "http://localhost:3000" ];
+console.log("Allowed CORS domains: ", allowedDomains);
+app.use(cors({ origin : (origin, callback) => {
+  if(!origin) return callback(null, true);
+  if(allowedDomains.indexOf(origin) === -1) {
+    let msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+    return callback(new Error(msg), false);
+  }
+  return callback(null, true);
+}}));
 let port = process.env.PORT || 3001;
 
 //MONGOOSE CONNECTION
@@ -18,7 +29,11 @@ const mongo_user = process.env.MONGODB_USER;
 const mongo_password = process.env.MONGODB_PASSWORD;
 const mongo_url = process.env.MONGODB_URL;
 
-mongoose.connect("mongodb+srv://"+mongo_user+":"+mongo_password+"@"+mongo_url+"/shoppingdatabase?retryWrites=true&w=majority").then(
+let url = process.env.ATLAS_URI || "mongodb://localhost:27017/todoapp";
+
+console.log("MONGODB URL",url);
+
+mongoose.connect(url).then(
 	() => console.log("Connected to mongodb"),
 	(err) => console.log("Failed to connect. Reason",err)
 );
