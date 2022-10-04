@@ -3,6 +3,7 @@ import './App.css';
 import ShoppingItem from './models/ShoppingItem';
 import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
+import { useAction } from './hooks/useAction';
 
 interface State {
   list: ShoppingItem[];
@@ -10,22 +11,14 @@ interface State {
 }
 
 function App() {
-  
-  const [state, setState] = useState<State>({ list: [], id: 100 });
 
-  const addToList = (item: ShoppingItem): void => {
-    setState({ ...state, list: [...state.list, item] });
-  }
-
-  const removeFromList = (id: number): void => {
-    setState({ ...state, list: state.list.filter(item => item.id !== id) });
-  }
+  const [list, loading, addToList, removeFromList] = useAction();
 
   return (
     <div className="App">
-      <h1>Shopping App with React Typescript</h1>
+      <h1>{ loading ? 'Loading...' : 'Shopping List' }</h1>
       <ShoppingForm addToList={addToList} />
-      <ShoppingList list={state.list} removeFromList={removeFromList} />
+      <ShoppingList list={list} removeFromList={removeFromList} />
     </div>
   );
 }
