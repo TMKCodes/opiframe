@@ -11,7 +11,6 @@ interface TokenState {
   }
 }
 
-
 const ShoppingForm: React.FC<{}> = (props) => {
   const tokenSelector = (state: TokenState) => state.login.token;
   const token = useSelector(tokenSelector);
