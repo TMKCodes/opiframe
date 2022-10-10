@@ -1,5 +1,7 @@
 import React from 'react';
 import ShoppingItem from '../models/ShoppingItem';
+import ShoppingRow from './ShoppingRow';
+import RemoveRow from './RemoveRow';
 
 interface Props {
   list: ShoppingItem[];
@@ -7,15 +9,6 @@ interface Props {
 }
 
 const ShoppingList: React.FC<Props> = (props: Props) => {
-  let items = props.list.map(item => (
-    <tr key={item.id}>
-      <td>{item.type}</td>
-      <td>{item.count}</td>
-      <td>{item.price}</td>
-      <td>{(item.count * item.price).toFixed(2)}</td>
-      <td><button onClick={() => props.removeFromList(item.id)}>Remove</button></td>
-    </tr>
-  ));
   return (
     <table style={{ width: "50%", margin: "auto", paddingTop: "20px"}}>
       <thead>
@@ -28,7 +21,11 @@ const ShoppingList: React.FC<Props> = (props: Props) => {
         </tr>
       </thead>
       <tbody>
-        {items}
+        { props.list.map(item => (
+          (item.mode === 'remove') ? 
+          <RemoveRow key={item.id} item={item} changeMode={props.changeMode} removeItem={props.removeItem} /> 
+          : <ShoppingRow key={item.id} item={item} changeMode={props.changeMode} />
+        ))}
       </tbody>
     </table>
   )

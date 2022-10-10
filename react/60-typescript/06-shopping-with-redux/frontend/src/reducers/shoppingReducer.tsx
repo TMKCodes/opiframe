@@ -77,13 +77,6 @@ const shoppingReducer: Reducer<ShoppingState, AnyAction> = (state = getInitialSt
     case actionConstants.UPDATE_ITEM_SUCCESS:
       tmpState = {
         ...state,
-        list: state.list.map((item: ShoppingItem) => {
-          if (item.id === action.item.id) {
-            return action.item;
-          } else {
-            return item;
-          }
-        }),
         error: ''
       }
       saveToStorage(tmpState);

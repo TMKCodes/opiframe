@@ -50,7 +50,7 @@ const ShoppingForm: React.FC<{}> = (props) => {
       <label htmlFor="count">Määrä</label>
       <input type="number" name="count" placeholder="Count" onChange={handleChange} />
       <label htmlFor="price">Hinta</label>
-      <input type="number" name="price" placeholder="Price" onChange={handleChange} />
+      <input type="number" name="price" placeholder="Price" step="0.01" onChange={handleChange} />
       <button type="submit">Add</button>
     </form>
   )

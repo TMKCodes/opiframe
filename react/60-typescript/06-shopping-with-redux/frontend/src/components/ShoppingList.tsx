@@ -5,6 +5,10 @@ import { ThunkDispatch } from "redux-thunk";
 import ShoppingItem from "../models/ShoppingItem";
 import { getList, remove, update } from "../actions/shoppingActions";
 
+import ShoppingRow from "./ShoppingRow";
+import DeleteRow from "./DeleteRow";
+import EditRow from "./EditRow";
+
 interface TokenState {
   login: {
     token: string;
@@ -74,35 +78,19 @@ const ShoppingList: React.FC<{}> = (props) => {
           </tr>
         </thead>
         <tbody>
-          {list.map((item: ShoppingItem, index: number) => (
-            <tr key={item.id}>
-              <td>{item.type}</td>
-              <td>{item.count}</td>
-              <td>{item.price}</td>
-              <td>
-                {state.removeIndex === index ? (
-                  <div>
-                    <button onClick={() => changeMode(0, "cancel")}>Peruuta</button>
-                    <button onClick={() => removeItem(item.id)}>Poista</button>
-                  </div>
-                ) : state.editIndex === index ? (
-                  <div>
-                    <button onClick={() => changeMode(0, "cancel")}>Peruuta</button>
-                    <button onClick={() => updateItem(item)}>Tallenna</button>
-                  </div>
-                ) : (
-                  <div>
-                    <button onClick={() => changeMode(index, "update")}>Muokkaa</button>
-                    <button onClick={() => changeMode(index, "remove")}>Poista</button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          ))}
+          { list.map((item, index) => {
+            if (state.removeIndex === index) {
+              return <DeleteRow key={item.id} item={item} changeMode={changeMode} removeItem={removeItem} />
+            } else if (state.editIndex === index) {
+              return <EditRow key={item.id} item={item} changeMode={changeMode} updateItem={updateItem} />
+            } else {
+              return <ShoppingRow key={item.id} item={item} index={index} changeMode={changeMode} />
+            }
+          })}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
 export default ShoppingList;
